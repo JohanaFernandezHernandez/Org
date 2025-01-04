@@ -2,7 +2,7 @@ import './Footer.css'
 import Facebook from "../../assets/Img/facebook.png"
 import twitter from "../../assets/Img/twitter.png"
 import Instagram from "../../assets/Img/instagram.png"
-import Logo from "../../assets/icono.png"
+import Logo from "../../assets/Icono.png"
 import Imgfooter from "../../assets/Img/footer.png"
 
 export const Footer = () => {
