@@ -4,12 +4,15 @@ import { ListaOpciones } from "../ListaOpciones";
 import "./Formulario.css";
 import { Input } from "./Input";
 
-export const Formulario = ({equipos, registrarColaborador}) => {
+export const Formulario = ({equipos, registrarColaborador, crearEquipo}) => {
 
   const [nombre, setNombre] = useState();
   const [puesto, setPuesto] = useState();
   const [foto, setFoto] = useState();
   const [equipo, setEquipo] = useState();
+
+  const [titulo, setTitulo]=useState();
+  const [color, setColor]=useState();
 
   const manejarEvento = (e) => {
     e.preventDefault();
@@ -20,8 +23,12 @@ export const Formulario = ({equipos, registrarColaborador}) => {
         equipo,
       };
     registrarColaborador(datosEnviar);
+    };
 
-    }
+  const manejarNuevoEquipo = (e) => {
+    e.preventDefault();
+    crearEquipo({titulo, colorPrimario: color});
+  }
 
 
   return (
@@ -52,6 +59,27 @@ export const Formulario = ({equipos, registrarColaborador}) => {
         <ListaOpciones valor={equipo} actualizarEquipo={setEquipo} equipos={equipos}/>
         <Button texto="Crear" />
       </form>
+
+      <form onSubmit={manejarNuevoEquipo}>
+        <h2>Rellena el formulario pata crear el equipo.</h2>
+        <Input
+          nombre="Titulo"
+          placeholder="Ingrese Titulo..."
+          required
+          valor={titulo}
+          actualizarValor={setTitulo}
+        />
+        <Input
+          nombre="Color"
+          placeholder="Ingrese el color en hex..."
+          required
+          valor={color}
+          actualizarValor={setColor} 
+          type="color" 
+        />
+
+        <Button texto="Registrar Equipo" />
+        </form>
     </section>
   );
 };

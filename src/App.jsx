@@ -14,35 +14,41 @@ function App() {
     equipo: "Front End",
     foto: "https://github.com/harlandlohora.png",
     nombre: "Harland Lohora",
-    puesto: "Instructor"
+    puesto: "Instructor",
+    fav: true
+
   },
   {
     id: uuid(),
     equipo: "Programación",
     foto: "https://github.com/JeanmarieAluraLatam.png",
     nombre: "Genesys Rondón",
-    puesto: "Desarrolladora de software e instructora"
+    puesto: "Desarrolladora de software e instructora",
+    fav: true
   },
   {
     id: uuid(),
     equipo: "UX y Diseño",
     foto: "https://github.com/JeanmarieAluraLatam.png",
     nombre: "Jeanmarie Quijada",
-    puesto: "Instructora en Alura Latam"
+    puesto: "Instructora en Alura Latam",
+    fav: false
   },
   {
     id: uuid(),
     equipo: "Programación",
     foto: "https://github.com/christianpva.png",
     nombre: "Christian Velasco",
-    puesto: "Head de Alura e Instructor"
+    puesto: "Head de Alura e Instructor",
+    fav: false
   },
   {
     id: uuid(),
     equipo: "Front End",
     foto: "https://github.com/JoseDarioGonzalezCha.png",
     nombre: "Jose Gonzalez",
-    puesto: "Dev FullStack"
+    puesto: "Dev FullStack",
+    fav: false
   }]);
   const [equipos, setEquipos] = useState( [
     {
@@ -95,15 +101,12 @@ function App() {
 
   //Registrar colaborador 
   const registrarColaborador = (colaborador) => {
-    console.log("nuevo colaborador", colaborador);
     setColaboradores([...colaboradores, colaborador]);
   };
 
   //Eliminar Colaborador
   const eliminarColaborador = (id) => {
-    console.log('eliminar colaborador', id);
     const nuevosColaboradores = colaboradores.filter((colaborador) => colaborador.id !== id);
-    console.log('colaboradores', nuevosColaboradores);
     setColaboradores(nuevosColaboradores);
 
   };
@@ -120,6 +123,25 @@ function App() {
    
   }
 
+  //Crear Equipo
+  const crearEquipo = (nuevoEquipo) => {
+    console.log(nuevoEquipo);
+    setEquipos([...equipos, {...nuevoEquipo, id: uuid()}]);
+  }
+
+  //Funcion Favoritos
+  const like = (id) => {
+    const colaboradoresActualizados = colaboradores.map((colaborador) => {
+      if(colaborador.id === id) {
+        colaborador.fav = !colaborador.fav
+      }
+      return colaborador;
+    })
+
+    setColaboradores(colaboradoresActualizados);
+
+  }
+
 
 
 
@@ -130,7 +152,8 @@ function App() {
     mostrarFormulario &&
     <Formulario 
     equipos = {equipos.map((equipo) => equipo.titulo)}
-    registrarColaborador= {registrarColaborador}/> 
+    registrarColaborador= {registrarColaborador}
+    crearEquipo={crearEquipo}/> 
     }
 
 
@@ -142,6 +165,7 @@ function App() {
       colaboradores={colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}
       eliminarColaborador={eliminarColaborador}
       actualizarColor={actualizarColor}
+      like={like}
       />)
     }
 

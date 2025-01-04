@@ -2,12 +2,14 @@ import { Colaborador } from "../Colaborador";
 import hexToRgba from 'hex-to-rgba';
 import "./Equipo.css";
 
-export const Equipo = ({ datos, colaboradores, eliminarColaborador, actualizarColor }) => {
+export const Equipo = ({ datos, colaboradores, eliminarColaborador, actualizarColor, like }) => {
   const { titulo, colorPrimario, colorSecundario, id } = datos;
 
   const obj = {
     backgroundColor: hexToRgba(colorPrimario, 0.6),
   };
+
+
 
   const estiloTitulo = {
     borderBottom: `4px solid ${colorPrimario}`,
@@ -28,7 +30,7 @@ export const Equipo = ({ datos, colaboradores, eliminarColaborador, actualizarCo
           
           />
           <div className="colaboradores">
-            {colaboradores.map((colaborador, index) => (<Colaborador datos={colaborador} key={index} colorPrimario={colorPrimario} eliminarColaborador={eliminarColaborador} />))}
+            {colaboradores.map((colaborador, index) => (<Colaborador datos={colaborador} key={index} colorPrimario={colorPrimario} eliminarColaborador={eliminarColaborador}  like={like}/>))}
           </div>
         </section>
       )}

@@ -6,8 +6,11 @@ export const Input = ({
     placeholder, 
     required = false, 
     valor, 
-    actualizarValor
+    actualizarValor,
+    type = 'text'  // tipo de input, por defecto es 'text'
 }) => {
+
+    console.log(type)
 
    const handleChange = (e) => {
     actualizarValor(e.target.value);
@@ -15,11 +18,11 @@ export const Input = ({
    }
 
 return(
-<div className='campo-texto'>
+<div className={`campo campo-${type}`}>
     <label>{nombre}</label>
     <input 
     placeholder={placeholder}
-    type="text"
+    type={type}
     required={required}
     value={valor}
     onChange={handleChange}
