@@ -1,11 +1,12 @@
 import { Colaborador } from "../Colaborador";
+import hexToRgba from 'hex-to-rgba';
 import "./Equipo.css";
 
-export const Equipo = ({ datos, colaboradores, eliminarColaborador }) => {
-  const { titulo, colorPrimario, colorSecundario } = datos;
+export const Equipo = ({ datos, colaboradores, eliminarColaborador, actualizarColor }) => {
+  const { titulo, colorPrimario, colorSecundario, id } = datos;
 
   const obj = {
-    backgroundColor: colorSecundario,
+    backgroundColor: hexToRgba(colorPrimario, 0.6),
   };
 
   const estiloTitulo = {
@@ -17,6 +18,15 @@ export const Equipo = ({ datos, colaboradores, eliminarColaborador }) => {
       {colaboradores.length > 0 && (
         <section className="equipo" style={obj}>
           <h3 style={estiloTitulo}>{titulo}</h3>
+          <input
+            type="color"
+            className="input-color"
+            value={colorPrimario}
+            onChange={(e) => {
+              actualizarColor(e.target.value, id);
+            }}
+          
+          />
           <div className="colaboradores">
             {colaboradores.map((colaborador, index) => (<Colaborador datos={colaborador} key={index} colorPrimario={colorPrimario} eliminarColaborador={eliminarColaborador} />))}
           </div>

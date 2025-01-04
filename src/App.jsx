@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {v4 as uuid } from 'uuid';
 import './App.css'
 import { Header } from './components/header/Header'
 import { Formulario } from './components/formulario/Formulario'
@@ -9,76 +10,88 @@ import { Footer } from './components/Footer'
 function App() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [colaboradores, setColaboradores] = useState([{
+    id: uuid(),
     equipo: "Front End",
     foto: "https://github.com/harlandlohora.png",
     nombre: "Harland Lohora",
     puesto: "Instructor"
   },
   {
+    id: uuid(),
     equipo: "Programación",
     foto: "https://github.com/JeanmarieAluraLatam.png",
     nombre: "Genesys Rondón",
     puesto: "Desarrolladora de software e instructora"
   },
   {
+    id: uuid(),
     equipo: "UX y Diseño",
     foto: "https://github.com/JeanmarieAluraLatam.png",
     nombre: "Jeanmarie Quijada",
     puesto: "Instructora en Alura Latam"
   },
   {
+    id: uuid(),
     equipo: "Programación",
     foto: "https://github.com/christianpva.png",
     nombre: "Christian Velasco",
     puesto: "Head de Alura e Instructor"
   },
   {
+    id: uuid(),
     equipo: "Front End",
     foto: "https://github.com/JoseDarioGonzalezCha.png",
     nombre: "Jose Gonzalez",
     puesto: "Dev FullStack"
   }]);
-
-  const actualizarForm = () => {
-    setMostrarFormulario(!mostrarFormulario);
-  }
-
-  //Lista de equipos 
-  const equipos = [
-    {titulo:"Programación",
+  const [equipos, setEquipos] = useState( [
+    {
+      id: uuid(),
+      titulo:"Programación",
       colorPrimario: "#57C278",
       colorSecundario:"#D9F7E9"
     },
-    {titulo:"Front End",
+    {
+      id: uuid(),
+      titulo:"Front End",
       colorPrimario: "#82CFFA",
       colorSecundario:"#E8F8FF"
     },
     {
+      id: uuid(),
       titulo:"Data Science",
       colorPrimario: "#A6D157",
       colorSecundario:"#F0F8E2"
     },
     {
+      id: uuid(),
       titulo:"Devops",
       colorPrimario: "#E06B69",
       colorSecundario:"#FDE7E8"
     },
     {
+      id: uuid(),
       titulo:"UX y Diseño",
       colorPrimario: "#DB6EBF",
       colorSecundario:"#FAE9F5"
     },
     {
+      id: uuid(),
       titulo:"Móvil",
       colorPrimario: "#FFBA05",
       colorSecundario:"#FFF5D9"
     },
     {
+      id: uuid(),
       titulo:"Innovación y  Gestión",
       colorPrimario: "#FF8A29",
       colorSecundario:"#FFEEDF"
     }
-  ];
+  ])
+
+  const actualizarForm = () => {
+    setMostrarFormulario(!mostrarFormulario);
+  }
 
   //Registrar colaborador 
   const registrarColaborador = (colaborador) => {
@@ -87,21 +100,37 @@ function App() {
   };
 
   //Eliminar Colaborador
-  const eliminarColaborador = () => {
-    console.log('eliminar colaborador')
+  const eliminarColaborador = (id) => {
+    console.log('eliminar colaborador', id);
+    const nuevosColaboradores = colaboradores.filter((colaborador) => colaborador.id !== id);
+    console.log('colaboradores', nuevosColaboradores);
+    setColaboradores(nuevosColaboradores);
+
+  };
+
+  //Actualizar color de equipo
+  const actualizarColor = (color, id) => {
+    const equiposActualizados = equipos.map((equipo) => {
+      if(equipo.id === id) {
+        equipo.colorPrimario = color
+      }
+      return equipo;
+    });
+    setEquipos(equiposActualizados);
+   
   }
+
+
 
 
   return (
     <div className='App'>
     <Header/>  
     {
-    mostrarFormulario ?  
+    mostrarFormulario &&
     <Formulario 
     equipos = {equipos.map((equipo) => equipo.titulo)}
     registrarColaborador= {registrarColaborador}/> 
-    : 
-    <></>
     }
 
 
@@ -112,6 +141,7 @@ function App() {
       key={equipo.titulo}
       colaboradores={colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}
       eliminarColaborador={eliminarColaborador}
+      actualizarColor={actualizarColor}
       />)
     }
 
