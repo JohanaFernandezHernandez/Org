@@ -4,7 +4,8 @@ import { ListaOpciones } from "../ListaOpciones";
 import "./Formulario.css";
 import { Input } from "./Input";
 
-export const Formulario = () => {
+export const Formulario = ({equipos, registrarColaborador}) => {
+
   const [nombre, setNombre] = useState();
   const [puesto, setPuesto] = useState();
   const [foto, setFoto] = useState();
@@ -12,14 +13,13 @@ export const Formulario = () => {
 
   const manejarEvento = (e) => {
     e.preventDefault();
-    console.log("hice click");
     let datosEnviar = {
         nombre,
         puesto,
         foto,
         equipo,
       };
-    console.log(datosEnviar);
+    registrarColaborador(datosEnviar);
 
     }
 
@@ -49,7 +49,7 @@ export const Formulario = () => {
           valor={foto}
           actualizarValor={setFoto}
         />
-        <ListaOpciones valor={equipo} actualizarEquipo={setEquipo}/>
+        <ListaOpciones valor={equipo} actualizarEquipo={setEquipo} equipos={equipos}/>
         <Button texto="Crear" />
       </form>
     </section>

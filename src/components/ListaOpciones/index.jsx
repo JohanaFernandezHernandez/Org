@@ -1,16 +1,7 @@
 import "./ListaOpciones.css";
 
-export const ListaOpciones = ({ valor, actualizarEquipo }) => {
+export const ListaOpciones = ({ valor, actualizarEquipo , equipos}) => {
   //Método .map
-  const equipos = [
-    "Programación",
-    "Front End",
-    "Data Science",
-    "Devops",
-    "UX y Diseño",
-    "Innovación y  Gestión",
-    "Móvil",
-  ];
 
   const manejarCambio = (e) => {
     actualizarEquipo(e.target.value);

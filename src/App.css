@@ -1,9 +1,14 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: start;
+  /* max-width: 1280px; */
+  /* text-align: start; */
+  margin: 0px;
+
 }
+
+.body{
+  margin: 0px;
+}
+
 
 .logo {
   height: 6em;
